@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ReadCSV {
 
-    public List read(InputStream inputStream){
+    public List read(InputStream inputStream) {
         List resultList = new ArrayList();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -18,16 +18,13 @@ public class ReadCSV {
                 String[] row = csvLine.split(",");
                 resultList.add(row);
             }
-        }
-        catch (IOException ex) {
-            throw new RuntimeException("Error in reading CSV file: "+ex);
-        }
-        finally {
+        } catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: " + ex);
+        } finally {
             try {
                 inputStream.close();
-            }
-            catch (IOException e) {
-                throw new RuntimeException("Error while closing input stream: "+e);
+            } catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: " + e);
             }
         }
         return resultList;

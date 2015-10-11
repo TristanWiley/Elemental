@@ -1,9 +1,5 @@
 package tristanwiley.com.elemental;
 
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,7 +32,7 @@ public class ElementInfo {
         }
     }
 
-    public String getSymbol(int num){
+    public String getSymbol(int num) {
         return list.get(num)[0];
     }
 
@@ -44,32 +40,44 @@ public class ElementInfo {
         return list.get(num)[1];
     }
 
-    public String getAtomic(int num){
+    public String getAtomic(int num) {
         return list.get(num)[2];
     }
 
-    public String getMass(int num){
+    public String getMass(int num) {
         return list.get(num)[3];
     }
 
-    public String getDensity(int num){
+    public String getDensity(int num) {
         return list.get(num)[4];
     }
 
-    public String getMeltingPoint(int num){
+    public String getMeltingPoint(int num) {
         return list.get(num)[5];
     }
 
-    public String getBoilingPoint(int num){
+    public String getBoilingPoint(int num) {
         return list.get(num)[6];
     }
 
-    public String getYearDiscover(int num){
+    public String getYearDiscover(int num) {
         return list.get(num)[7];
     }
 
-    public String getDiscoverer(int num){
+    public String getDiscoverer(int num) {
         return list.get(num)[8];
     }
+
+    public String getDescription(int num){ return list.get(num)[9];}
+
+    public String getUses(int num){ return list.get(num)[10];}
+
+    public String getStateatSTP(int num){ return list.get(num)[11];}
+
+    public String getOccuranceValue(int num){ return list.get(num)[12];}
+
+    public String getGroup(int num){return list.get(num)[13];}
+
+    public String getPeriod(int num){return list.get(num)[14];}
 
 }

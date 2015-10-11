@@ -1,26 +1,17 @@
 package tristanwiley.com.elemental;
 
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     ElementInfo e;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             e = new ElementInfo();
             e.getElement(getAssets().open("elements.csv"));
-        }catch (Exception e){
+        } catch (Exception e) {
             //Damn
         }
 
@@ -38,45 +29,43 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 18; i++) {
             if (i == 0) {
                 final int fNum = i;
+                final int number = i + 1;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 1));
+                name.setText(e.getName(number));
                 tableRow.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
             }
-            if (i == 16){
+            if (i == 16) {
                 final int fNum = i;
+                final int number = 2;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(2));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(2));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(2));
+                symbol.setText(e.getSymbol(number));
                 tableRow.addView(v);
-            }else{
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
+            } else {
+                final int fNum = i;
+
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
                 name.setText("");
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
@@ -84,75 +73,89 @@ public class MainActivity extends AppCompatActivity {
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
                 symbol.setText("");
                 tableRow.addView(v);
+
             }
         }
+
 
         // Add one row for testing
         TableRow tableRow2 = new TableRow(this);
         for (int i = 0; i < 18; i++) {
             if (i == 0) {
                 final int fNum = i;
+                final int number = i + 3;
+
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 3));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 3));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 3));
+                symbol.setText(e.getSymbol(number));
                 tableRow2.addView(v);
-            }else if (i == 1){
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
 
+            } else if (i == 1) {
+                final int fNum = i;
+                final int number = i + 3;
+
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 3));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 3));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 3));
+                symbol.setText(e.getSymbol(number));
                 tableRow2.addView(v);
-            }else if (i > 11){
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadElement(number);
+                    }
+                };
+                v.setOnClickListener(clickListener);
+
+            } else if (i == 5){
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText("Element Name");
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText("Atomic #");
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText("Symbol");
+                tableRow2.addView(v);
+
+            } else if (i > 11) {
                 int n = 7;
+                final int number = i - n;
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i -n));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i -n));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i -n));
+                symbol.setText(e.getSymbol(number));
                 tableRow2.addView(v);
-            }else{
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
+            } else {
+                final int fNum = i;
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
                 TextView name = (TextView) v.findViewById(R.id.element_name);
                 name.setText("");
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
                 symbol.setText("");
                 tableRow2.addView(v);
+
             }
         }
 
@@ -168,65 +172,69 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 18; i++) {
             if (i == 0) {
                 final int fNum = i;
+                final int number = i + 11;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(number));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(number));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(number));
+                tableRow3.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
+            } else if (i == 1) {
+                final int fNum = i;
+                final int number = i + 11;
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 11));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 11));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 11));
+                symbol.setText(e.getSymbol(number));
                 tableRow3.addView(v);
-            }else if (i == 1){
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadElement(number);
+                    }
+                };
+                v.setOnClickListener(clickListener);
+
+            } else if (i > 11) {
+                final int fNum = i;
+                final int number = i + 1;
+
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(number));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(number));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(number));
+                tableRow3.addView(v);
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadElement(number);
+                    }
+                };
+                v.setOnClickListener(clickListener);
+
+            } else {
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 11));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 11));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 11));
-                tableRow3.addView(v);
-            }else if (i > 11){
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 1));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 1));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 1));
-                tableRow3.addView(v);
-            }else{
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
+
                 TextView name = (TextView) v.findViewById(R.id.element_name);
                 name.setText("");
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
@@ -234,121 +242,148 @@ public class MainActivity extends AppCompatActivity {
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
                 symbol.setText("");
                 tableRow3.addView(v);
-            }        }
+
+
+            }
+        }
 
         // Add another row for testing
         TableRow tableRow4 = new TableRow(this);
         for (int i = 0; i < 18; i++) {
             int n = 19;
+            final int number = i + n;
             final int fNum = i;
             View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+            TextView name = (TextView) v.findViewById(R.id.element_name);
+            name.setText(e.getName(number));
+            TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+            num.setText(e.getAtomic(number));
+            TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+            symbol.setText(e.getSymbol(number));
+            tableRow4.addView(v);
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                    loadElement(number);
                 }
             };
             v.setOnClickListener(clickListener);
-            TextView name = (TextView) v.findViewById(R.id.element_name);
-            name.setText(e.getName(i + n));
-            TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-            num.setText(e.getAtomic(i + n));
-            TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-            symbol.setText(e.getSymbol(i + n));
-            tableRow4.addView(v);
+
         }
 
         // Add one row for testing
         TableRow tableRow5 = new TableRow(this);
         for (int i = 0; i < 18; i++) {
             int n = 37;
+            final int number = i + n;
             final int fNum = i;
             View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+            TextView name = (TextView) v.findViewById(R.id.element_name);
+            name.setText(e.getName(number));
+            TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+            num.setText(e.getAtomic(number));
+            TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+            symbol.setText(e.getSymbol(number));
+            tableRow5.addView(v);
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                    loadElement(number);
                 }
             };
             v.setOnClickListener(clickListener);
-            TextView name = (TextView) v.findViewById(R.id.element_name);
-            name.setText(e.getName(i + n));
-            TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-            num.setText(e.getAtomic(i + n));
-            TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-            symbol.setText(e.getSymbol(i + n));
-            tableRow5.addView(v);
+
         }
 
         // Add another row for testing
         TableRow tableRow6 = new TableRow(this);
         for (int i = 0; i < 18; i++) {
-            if(i == 0){
+            if (i == 0) {
                 final int fNum = i;
+                final int number = i + 55;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(number));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(number));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(number));
+                tableRow6.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
+
+            } else if (i == 1) {
+                final int fNum = i;
+                final int number = i + 55;
+
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 55));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 55));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 55));
+                symbol.setText(e.getSymbol(number));
+                tableRow6.addView(v);
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadElement(number);
+                    }
+                };
+                v.setOnClickListener(clickListener);
+
+            } else if (i == 2) {
+                final int fNum = i;
+                final String range = "57-71";
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                num.setText("");
+                symbol.setText(range);
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText("");
                 tableRow6.addView(v);
 
-            }else if(i == 1){
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        showExtraElements(range, true);
                     }
                 };
                 v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + 55));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + 55));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + 55));
-                tableRow6.addView(v);
-            }else if(i == 2){
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText("57-71");
-                tableRow6.addView(v);
-            }else{
+
+
+
+            } else {
                 int n = 69;
+                final int number = i + n;
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(number));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(number));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(number));
+                tableRow6.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + n));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + n));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + n));
-                tableRow6.addView(v);
+
             }
 
         }
@@ -357,77 +392,87 @@ public class MainActivity extends AppCompatActivity {
         // Add one row for testing
         for (int i = 0; i < 18; i++) {
             int n = 87;
-            if(i == 0){
+            final int number = i + n;
+            if (i == 0) {
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(number));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(number));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(number));
+                tableRow7.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + n));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + n));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + n));
-                tableRow7.addView(v);
 
-            }else if(i == 1){
+
+            } else if (i == 1) {
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
-                View.OnClickListener clickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
-                    }
-                };
-                v.setOnClickListener(clickListener);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + n));
+                name.setText(e.getName(number));
                 TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + n));
+                num.setText(e.getAtomic(number));
                 TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + n));
+                symbol.setText(e.getSymbol(number));
                 tableRow7.addView(v);
-            }else if(i == 2){
-                final int fNum = i;
-                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(findViewById(R.id.mainActivity), e.getName(fNum), Snackbar.LENGTH_LONG).show();
+                        loadElement(number);
                     }
                 };
                 v.setOnClickListener(clickListener);
+
+            } else if (i == 2) {
+                final String range = "89-103";
+                final int fNum = i;
+                View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                num.setText("");
+                symbol.setText(range);
                 TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText("89-103");
+                name.setText("");
                 tableRow7.addView(v);
-            }else{
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showExtraElements(range, false);
+                    }
+                };
+                v.setOnClickListener(clickListener);
+
+            } else {
                 int nn = 101;
+                final int nnumber = i + nn;
                 final int fNum = i;
                 View v = getLayoutInflater().inflate(R.layout.table_square, null, false);
+                TextView name = (TextView) v.findViewById(R.id.element_name);
+                name.setText(e.getName(nnumber));
+                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
+                num.setText(e.getAtomic(nnumber));
+                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
+                symbol.setText(e.getSymbol(nnumber));
+                tableRow7.addView(v);
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadElement(fNum);
+                        loadElement(nnumber);
                     }
                 };
                 v.setOnClickListener(clickListener);
-                TextView name = (TextView) v.findViewById(R.id.element_name);
-                name.setText(e.getName(i + nn));
-                TextView num = (TextView) v.findViewById(R.id.element_atomic_number);
-                num.setText(e.getAtomic(i + nn));
-                TextView symbol = (TextView) v.findViewById(R.id.element_symbol);
-                symbol.setText(e.getSymbol(i + nn));
-                tableRow7.addView(v);
+
             }
 
         }
-
-
+        
         TableLayout tableLayout = (TableLayout) findViewById(R.id.periodic_table);
         tableLayout.addView(tableRow);
         tableLayout.addView(tableRow2);
@@ -438,8 +483,21 @@ public class MainActivity extends AppCompatActivity {
         tableLayout.addView(tableRow7);
 
     }
-    
-    public void loadElement(int num){
-        
+
+    public void loadElement(int num) {
+        Intent i = new Intent(MainActivity.this, ElementDetail.class);
+        i.putExtra("ATOMIC_NUMBER", num);
+        startActivity(i);
+    }
+
+    public void showExtraElements(String range, boolean firstExtra) {
+        FragmentManager fm = getSupportFragmentManager();
+        ExtraElementFrag editNameDialog = ExtraElementFrag.newInstance(range);
+        Bundle args = new Bundle();
+        args.putString("range", range);
+        args.putBoolean("first_extra", firstExtra);
+        editNameDialog.setArguments(args);
+        editNameDialog.show(fm, "fragment_edit_name");
     }
 }
+

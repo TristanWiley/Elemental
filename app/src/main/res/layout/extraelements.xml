@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/dialogLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal">
+
+            <include
+                android:id="@+id/element1"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element2"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element3"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element4"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element5"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element6"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element7"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element8"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element9"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element10"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element11"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element12"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element13"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element14"
+                layout="@layout/table_square" />
+
+            <include                 android:id="@+id/element15"
+                layout="@layout/table_square" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
